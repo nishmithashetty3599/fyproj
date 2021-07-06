@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>HTML Forms</h2>
+
+<form method="POST">
+  <label for="category">Type y to give categories</label><br>
+  <input type="text" id="category" name="category" value=""><br>
+
+  <label for="types">How many types of images do you want to classify?</label><br>
+  <input type="number" id="types" name="types"><br>
+  
+  <label for="name1">Please enter category1</label><br>
+  <input type="text" id="name1" name="name1" value="" ><br>
+
+  <label for="name1">Please enter category2</label><br>
+  <input type="text" id="name2" name="name2" value="" ><br>
+
+
+  <label for="url">Please enter path to the category</label><br>
+  <input type="text" id="url" name="url" value=""><br>
+
+  <label for="urlpic">Please the url of the query image</label><br>
+  <input type="text" id="urlpic" name="urlpic" value=""><br>
+
+
+  <input type="submit" value="Submit">
+
+  
+</form> 
+<label>The predicted model is: {{Categories0}}</label>
+<label>{{Categories1}}</label>
+</body>
+</html>
