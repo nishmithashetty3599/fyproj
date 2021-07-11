@@ -1,35 +1,101 @@
 <!DOCTYPE html>
 <html>
-<body>
+  <head>
+    <title>Welcome Tour</title>
+    <link href='https://fonts.googleapis.com/css?family=Stylish' rel='stylesheet'>
+  </head>
+  <style>
+    .container {
+                  /* border: 1.5px solid; */
+            /* border: 10px solid darkslategray; */
+            padding: 20px;
+            align-content:center;
+            position: absolute;
+            top: 22%;
+            left: 5%;
+            padding-left: 30px;
+            padding-right: 80px;
+            padding-bottom: 20px;
+            -moz-box-shadow: inset 0 0 10px  #81dbf1;
+            -webkit-box-shadow: inset 0 0 10px #81dbf1;
+            box-shadow: inset 0 0 10px #58a769;
+            background-color:rgba(220,235,235,255);
+            /* background-color: lightgrey; */
+    }
 
-<h2>HTML Forms</h2>
+    h1, h2 {
+            text-align: center;
+            font-family: 'Stylish';
+            font-size: 30px
+    }
+    label {
+      text-align: center;
+            font-family: 'Stylish';
+            font-size: 15px
+    }
+
+    .top-left {
+    position: absolute;
+    top: 8px;
+    left: 170px;
+    color: lightseagreen;
+    border-color: black;
+}
+
+table {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+    
+  </style>
+<body>
+  <div class="position">
+    <img src="https://venturebeat.com/wp-content/uploads/2020/11/GettyImages-1204561139.jpg?fit=2323%2C1156&strip=all" height="589px" width="100%">
+  </div>
+  <h1 class="top-left">Welcome Folks!</h1>
+<h2 style="position: absolute; top: 50px; left: 50px; color: lightseagreen;">Get ready to experience our Model Tour</h2>
 
 <form method="POST">
-  <label for="category">Type y to give categories</label><br>
+  <div class="container">
+    <label for="category">Press y to give categories</label><br>
   <input type="text" id="category" name="category" value=""><br>
+  <br>
 
   <label for="types">How many types of images do you want to classify?</label><br>
   <input type="number" id="types" name="types"><br>
+  <br>
   
   <label for="name1">Please enter category1</label><br>
   <input type="text" id="name1" name="name1" value="" ><br>
+  <br>
 
   <label for="name1">Please enter category2</label><br>
   <input type="text" id="name2" name="name2" value="" ><br>
+  <br>
 
 
   <label for="url">Please enter path to the category</label><br>
   <input type="text" id="url" name="url" value=""><br>
+  <br>
 
   <label for="urlpic">Please the url of the query image</label><br>
   <input type="text" id="urlpic" name="urlpic" value=""><br>
 
-
-  <input type="submit" value="Submit">
+  <br>
+  <input type="submit" value="Submit" style="padding: 4px; color: white; background-color: lightseagreen;">
+  <br>
+  <br>
+  <table style="width:100%">
+    <tr>
+      <th><label>The predicted model is: {{Categories0}}</label></th><br>
+      <th><label>The model is {{acc}} accurate</label></th>
+      </tr>
+  </table>
+  </div>
+  
 
   
-</form> 
-<label>The predicted model is: {{Categories0}}</label>
-<label>{{Categories1}}</label>
+</form>
+
 </body>
 </html>

@@ -45,7 +45,7 @@ def hello():
       #print(f"Please upload all the {n} category images with the same names as given in categories")
     flat_data_arr=[]
     target_arr=[]
-    #datadir= "C:/Users/User/Desktop/fyproj/venv/Cat"
+    #datadir= ""
     datadir=request.form.get('url')
     print(datadir)
     for i in Categories:
@@ -90,8 +90,8 @@ def hello():
 
     url=request.form.get('urlpic')
     img=imread(url)
-    #plt.imshow(img)
-    #plt.show()
+    plt.imshow(img)
+    plt.show()
     img_resize=resize(img,(150,150,3))
     l=[img_resize.flatten()]
     probability=model.predict_proba(l)
@@ -101,6 +101,7 @@ def hello():
     print("The predicted image is : "+Categories[model.predict(l)[0]])
     print(f'Is the image a {Categories[model.predict(l)[0]]} ?(y/n)')
     while(True):
+      
       b=input()
       if(b=="y" or b=="n"):
         break
@@ -136,6 +137,6 @@ def hello():
         print(f"The model is now {accuracy_score(y_pred1,y_test1)*100}% accurate")
         pickle.dump(model1,open('img_model.p','wb'))
       print("Thank you for your feedback")
-    return render_template("abc.html", Categories0=Categories[model.predict(l)[0]])
+    return render_template("abc.html", Categories0=Categories[model.predict(l)[0]], acc=accuracy_score(y_pred1,y_test1)*100)
   
   return render_template("abc.html")
