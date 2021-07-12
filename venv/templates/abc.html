@@ -57,10 +57,9 @@ table {
 
 <form method="POST">
   <div class="container">
-    <label for="category">Press y to give categories</label><br>
-  <input type="text" id="category" name="category" value=""><br>
-  <br>
-
+    <!-- <label for="category">Press y to give categories</label><br>
+    <input type="text" id="category" name="category" value="">
+  <br> -->
   <label for="types">How many types of images do you want to classify?</label><br>
   <input type="number" id="types" name="types"><br>
   <br>
@@ -74,22 +73,28 @@ table {
   <br>
 
 
-  <label for="url">Please enter path to the category</label><br>
+  <label for="url">Please enter the path to the datasets</label><br>
   <input type="text" id="url" name="url" value=""><br>
   <br>
 
-  <label for="urlpic">Please the url of the query image</label><br>
+  <label for="urlpic">Please enter the URL of the query image</label><br>
   <input type="text" id="urlpic" name="urlpic" value=""><br>
-
   <br>
+
+  <label for="type">Enter the index of the query image</label><br>
+  <input type="number" id="type" name="type" value=""><br>
+  <br>
+
   <input type="submit" value="Submit" style="padding: 4px; color: white; background-color: lightseagreen;">
   <br>
   <br>
+  
+  
   <table style="width:100%">
     <tr>
-      <th><label>The predicted model is: {{Categories0}}</label></th><br>
-      <th><label>The model is {{acc}} accurate</label></th>
-      </tr>
+      <th><label>The predicted image is:{{Cat0}} &ensp;</label></th>
+      <th><label>The predicted image after learning:{{Cat1}} &ensp;</label> </th>
+      <th><label>The model is&ensp;{{acc}}% accurate</label></th>
   </table>
   </div>
   
