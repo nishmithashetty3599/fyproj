@@ -17,29 +17,28 @@ app=Flask(__name__)
 def hi():
   return "hello!"
 
-
 @app.route('/catego', methods =["GET","POST"])
 def hello():
   if request.method == "POST":
     Categories=['Cars','sunflowers','Ice cream cone']
-    #print("Type y to give categories or type n to go with classification of Cars, Sunflowers and Ice cream cone");
-    while(True):
-      check=request.form.get('category')
-      if(check=='n' or check=='y'):
-        break
-      #print("Please give a valid input (y/n)")
-    if(check=='y'):
+    # #print("Type y to give categories or type n to go with classification of Cars, Sunflowers and Ice cream cone");
+    # while(True):
+    #   check=request.form.get('category')
+    #   if(check=='n' or check=='y'):
+    #     break
+    #   #print("Please give a valid input (y/n)")
+    # if(check=='y'):
       #print("Enter How many types of images do you want to classify")
-      n= (int)(request.form['types'])
+    n= (int)(request.form['types'])
       #n=request.form.get('types')
-      Categories=[]
+    Categories=[]
       #print(f'Please enter {n} names')
       # for i in range(n):
-      name1=request.form.get('name1')
-      name2=request.form.get('name2')
-      Categories.append(name1)
-      Categories.append(name2)
-      print(Categories)
+    name1=request.form.get('name1')
+    name2=request.form.get('name2')
+    Categories.append(name1)
+    Categories.append(name2)
+    print(Categories)
       #print(f"Please upload all the {n} category images with the same names as given in categories")
     
       #print(f"Please upload all the {n} category images with the same names as given in categories")
@@ -88,10 +87,11 @@ def hello():
     #print(os.path.abspath(os.getcwd()))
     model=pickle.load(open('img_model.p','rb'))
 
+
     url=request.form.get('urlpic')
     img=imread(url)
-    plt.imshow(img)
-    plt.show()
+    # plt.imshow(img)
+    # plt.show()
     img_resize=resize(img,(150,150,3))
     l=[img_resize.flatten()]
     probability=model.predict_proba(l)
@@ -99,44 +99,43 @@ def hello():
       print(f'{val} = {probability[0][ind]*100}%')
 
     print("The predicted image is : "+Categories[model.predict(l)[0]])
-    print(f'Is the image a {Categories[model.predict(l)[0]]} ?(y/n)')
-    while(True):
-      
-      b=input()
-      if(b=="y" or b=="n"):
-        break
-      print("please enter either y or n")
+    # print(f'Is the image a {Categories[model.predict(l)[0]]} ?(y/n)')
+    # while(True):
+    #   b=input()
+    #   if(b=="y" or b=="n"):
+    #     break
+    #   print("please enter either y or n")
 
-    if(b=='n'):
-      print("What is the image?")
-      for i in range(len(Categories)):
-        print(f"Enter {i} for {Categories[i]}")
-        k=int(input())
-        while(k<0 or k>=len(Categories)):
-          print(f"Please enter a valid number between 0-{len(Categories)-1}")
-          k=int(input())
-        print("Please wait for a while for the model to learn from this image :)")
-        flat_arr=flat_data_arr.copy()
-        tar_arr=target_arr.copy()
-        tar_arr.append(k)
-        flat_arr.extend(l)
-        tar_arr=np.array(tar_arr)
-        flat_df=np.array(flat_arr)
-        df1=pd.DataFrame(flat_df)
-        df1['Target']=tar_arr
-        model1=GridSearchCV(svc,param_grid)
-        x1=df1.iloc[:,:-1]
-        y1=df1.iloc[:,-1]
-        x_train1,x_test1,y_train1,y_test1=train_test_split(x1,y1,test_size=0.20,random_state=77,stratify=y1)
-        d={}
-        for i in model.best_params_:
-          d[i]=[model.best_params_[i]]
-        model1=GridSearchCV(svc,d)
-        model1.fit(x_train1,y_train1)
-        y_pred1=model.predict(x_test1)
-        print(f"The model is now {accuracy_score(y_pred1,y_test1)*100}% accurate")
-        pickle.dump(model1,open('img_model.p','wb'))
-      print("Thank you for your feedback")
-    return render_template("abc.html", Categories0=Categories[model.predict(l)[0]], acc=accuracy_score(y_pred1,y_test1)*100)
-  
+    # if(b=='n'):
+    print("What is the image?")
+    for i in range(len(Categories)):
+      print(f"Enter {i} for {Categories[i]}")
+    k=(int)(request.form['type'])
+    while(k<0 or k>=len(Categories)):
+      print(f"Please enter a valid number between 0-{len(Categories)-1}")
+      k=int(input())
+    print("Please wait for a while for the model to learn from this image :)")
+    flat_arr=flat_data_arr.copy()
+    tar_arr=target_arr.copy()
+    tar_arr.append(k)
+    flat_arr.extend(l)
+    tar_arr=np.array(tar_arr)
+    flat_df=np.array(flat_arr)
+    df1=pd.DataFrame(flat_df)
+    df1['Target']=tar_arr
+    model1=GridSearchCV(svc,param_grid)
+    x1=df1.iloc[:,:-1]
+    y1=df1.iloc[:,-1]
+    x_train1,x_test1,y_train1,y_test1=train_test_split(x1,y1,test_size=0.20,random_state=77,stratify=y1)
+    d={}
+    for i in model.best_params_:
+      d[i]=[model.best_params_[i]]
+    model1=GridSearchCV(svc,d)
+    model1.fit(x_train1,y_train1)
+    y_pred1=model.predict(x_test1)
+    print(f"The model is now {accuracy_score(y_pred1,y_test1)*100}% accurate")
+    print("The predicted image is : "+Categories[model1.predict(l)[0]])
+    pickle.dump(model1,open('img_model.p','wb'))
+    print("Thank you for your feedback")
+    return render_template("abc.html", Cat1=Categories[model1.predict(l)[0]], Cat0=Categories[model.predict(l)[0]], acc=accuracy_score(y_pred1,y_test1)*100)
   return render_template("abc.html")
